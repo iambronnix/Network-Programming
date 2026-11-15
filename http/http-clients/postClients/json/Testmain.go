@@ -40,26 +40,26 @@ func postUser(t *testing.T){
 	defer ts.Close()
 	 resp, err := http.Get(ts.URL)
 		if err != nil{
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 		if resp.StatusCode != http.StatusMethodNotAllowed{
-			log.Fatalf("expected status %d; actual status %d", http.StatusMethodNotAllowed, resp.StatusCode)
+			t.Fatalf("expected status %d; actual status %d", http.StatusMethodNotAllowed, resp.StatusCode)
 		}
 
 		buf := new(bytes.Buffer)
 		u := User{First: "erick", Last: "Mwendwa"}
 		err = json.NewEncoder(buf).Encode(&u)
 		if err != nil{
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		resp, err = http.Post(ts.URL, "application/json", buf)
 		if err != nil{
-			log.Fatal(err)
+			t.Fatal(err)
 		}
 
 		if resp.StatusCode != http.StatusAccepted {
-			log.Fatalf("expected status %d; actual status %d ", http.StatusAccepted,resp.StatusCode)
+			t.Fatalf("expected status %d; actual status %d ", http.StatusAccepted,resp.StatusCode)
 		}
 		_ = resp.Body.Close()
 }
