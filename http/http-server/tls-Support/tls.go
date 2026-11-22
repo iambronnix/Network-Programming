@@ -23,8 +23,9 @@ func main(){
 		err := srv.ServeTLS(l, "cert.pem", "key.pem")//for production use https://letsencrypt.org/
 		                                             //for development check out https://github.com/FiloSottile/mkcert/
 		if err != http.ErrServerClosed{
-			log.Fatal(err)
-			
+			log.Println(err)
+			return			
 		}
+		log.Println(err)
 	}()
 }
